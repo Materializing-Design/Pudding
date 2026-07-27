@@ -1,15 +1,11 @@
 # Pudding
-
 It's where the design proof is
 
-A GitHub Pages site that hosts every dated static build of a project and serves them
-one at a time, with a generated index linking to each.
+A GitHub Pages site that hosts every dated static build of a project and serves them one at a time, with a generated index linking to each.
 
 ## Adding a build
 
-1. Drop the build's folder into `builds/`, named `YYYY-MM-DD`. It must contain an
-   `index.html`, and its asset paths must be relative (no leading `/`), since the site
-   is served from a subpath.
+1. Drop the build's folder into `builds/`, named `YYYY-MM-DD`. It must contain an `index.html`, and its asset paths must be relative (no leading `/`), since the site is served from a subpath.
 2. Commit and push.
 
 The index regenerates on push — the list is read from the folder names in `builds/`,
@@ -41,9 +37,3 @@ repository to GitHub Pages on every push to `main`. This requires
 **Settings → Pages → Source: "GitHub Actions"**.
 
 `index.html` is generated output — edit `scripts/generate-index.mjs`, not the HTML.
-
-## Known quirk
-
-The `2016-12-28` build references a `css/style.css` that isn't present in that
-snapshot, so it renders unstyled. That's how the build was archived; it hasn't been
-patched, to keep the snapshots faithful.
