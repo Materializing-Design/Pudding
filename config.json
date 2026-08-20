@@ -1,5 +1,5 @@
 {
-  "name": "It is as if you were doing work",
-  "author": "Pippin Barr",
-  "description": "The robots are here! No more work! It’s great! Is it great?! Wait! You feel apathetic and unproductive! You miss clicking buttons! You miss waiting for progress bars! You miss checkboxes! You miss work! But it’s going to be okay! Use this handy application and it is as if you were doing work! It is as if you were doing work is a work of speculative play, presenting a vision of a possible/near-future in the form of an application that helps people pretend they’re doing standard-issue computer work. Jump in an answer emails, write documents, click check boxes, and so much more!"
+  "name": "Pudding -- your game title goes here",
+  "author": "Materializing Design -- the designers' name(s) go here",
+  "description": "A template GitHub Repository for you to generate repos from. Then in the builds folder add static html (other platforms go to itch.io and its devlogs) builds of your game. From repo settings, go to the Pages tab and select GitHub actions as the deploy mechanism it will automatically deploy the page for your repo on every push. For more instructions see the Readme.md."
 }

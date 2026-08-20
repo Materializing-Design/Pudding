@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Placeholder build — how to use Pudding</title>
+  <meta name="description"
+    content="A placeholder build that doubles as a tutorial for using the Pudding template.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap">
+  <style>
+    /* Everything this page needs is inline, and it links to no file outside its own
+       folder — which is exactly the rule a build has to follow to work here. */
+    :root {
+      --coral: #E95F58;
+      --ink: #2C2C2A;
+      --white: #FFFFFF;
+      --parchment: #F1EFE8;
+      --stone: #8A8A8A;
+      --background: #EEE;
+      --rule: rgba(138, 138, 138, 0.2);
+      --code-bg: #E5E1D8;
+      --font-heading: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --font-body: "Archivo", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background-color: var(--background);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    a { color: var(--coral); }
+
+    .back {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+
+    .back:hover { text-decoration: underline; }
+
+    .badge {
+      display: block;
+      width: fit-content;
+      border: 1px solid rgba(233, 95, 88, 0.5);
+      border-radius: 9999px;
+      padding: 0.125rem 0.5rem;
+      font-family: var(--font-heading);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--coral);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.75rem;
+      line-height: 1.25;
+      margin: 0 0 0.75rem;
+    }
+
+    .lede { color: var(--stone); margin: 0 0 2.5rem; }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 2.5rem 0 0.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+
+    ol.steps > li {
+      counter-increment: step;
+      position: relative;
+      padding: 0 0 1.5rem 2.5rem;
+    }
+
+    ol.steps > li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      color: var(--coral);
+    }
+
+    ol.steps h3 {
+      font-family: var(--font-heading);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem;
+    }
+
+    ol.steps p { margin: 0 0 0.5rem; }
+
+    code {
+      font-family: var(--font-heading);
+      background: var(--code-bg);
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
+
+    pre {
+      background: var(--ink);
+      color: var(--parchment);
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin: 0.75rem 0;
+    }
+
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 1em; }
+
+    ul.plain { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+
+    ul.plain li { margin-bottom: 0.4rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0;
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      border: 1px solid var(--rule);
+      padding: 0.45rem 0.6rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    td code { font-size: 0.8rem; }
+
+    .callout {
+      border-left: 3px solid var(--coral);
+      background: rgba(255, 255, 255, 0.6);
+      padding: 0.85rem 1rem;
+      margin: 1.5rem 0 0;
+    }
+
+    .callout p { margin: 0; }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.8125rem;
+      color: var(--stone);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a class="back" href="../../index.html">&larr; Back to all builds</a>
+
+    <p class="badge">Placeholder build</p>
+    <h1>You are looking at a build</h1>
+    <p class="lede">
+      This page is a stand-in for your game. It lives at
+      <code>builds/2026-08-20/index.html</code>, and the link you followed to get here was
+      generated automatically from that folder's name. Replace it with a real build and the
+      list on the front page updates itself.
+    </p>
+
+    <h2>Setting up your copy</h2>
+    <ol class="steps">
+      <li>
+        <h3>Generate a repository from this template</h3>
+        <p>
+          On GitHub, use <strong>Use this template &rarr; Create a new repository</strong>. You
+          get your own copy with none of this repo's history.
+        </p>
+      </li>
+      <li>
+        <h3>Turn on Pages</h3>
+        <p>
+          In your new repo: <strong>Settings &rarr; Pages &rarr; Source</strong>, and choose
+          <strong>GitHub Actions</strong>. Every push to <code>main</code> then rebuilds and
+          republishes the site on its own.
+        </p>
+      </li>
+      <li>
+        <h3>Write your own copy</h3>
+        <p>Edit <code>config.json</code> at the root of the repo:</p>
+        <pre><code>{
+  "name": "Your game's title",
+  "author": "Your name",
+  "description": "A sentence or two about the project."
+}</code></pre>
+        <p>
+          <code>name</code> and <code>author</code> are required. <code>description</code> is
+          optional — leave it out and the paragraph simply doesn't appear.
+        </p>
+      </li>
+      <li>
+        <h3>Add your first build</h3>
+        <p>
+          Drop the folder into <code>builds/</code>, named for the day the build was made:
+        </p>
+        <pre><code>builds/
+  2026-09-14/
+    index.html
+    css/
+    js/</code></pre>
+        <p>
+          Commit and push. That's the whole process — you never edit the front page by hand.
+        </p>
+      </li>
+      <li>
+        <h3>Delete this placeholder</h3>
+        <p>
+          Remove the <code>builds/2026-08-20/</code> folder once you have a build of your own,
+          and this page disappears from the list.
+        </p>
+      </li>
+    </ol>
+
+    <h2>Naming build folders</h2>
+    <p>
+      A folder is only picked up if its name is a date. Add a 24-hour time when more than one
+      build lands on the same day.
+    </p>
+    <table>
+      <tr>
+        <th>Folder name</th>
+        <th>Shows up as</th>
+      </tr>
+      <tr>
+        <td><code>2026-09-14</code></td>
+        <td>September 14, 2026</td>
+      </tr>
+      <tr>
+        <td><code>2026-09-14-0930</code></td>
+        <td>September 14, 2026 &middot; 09:30</td>
+      </tr>
+      <tr>
+        <td><code>2026-09-14-1745</code></td>
+        <td>September 14, 2026 &middot; 17:45</td>
+      </tr>
+      <tr>
+        <td><code>2026-09-14-174530</code></td>
+        <td>September 14, 2026 &middot; 17:45:30</td>
+      </tr>
+    </table>
+    <p>
+      Dated and timed folders mix freely — one without a time counts as that day's earliest
+      build. Anything that isn't a valid date is skipped, so you can keep notes or working
+      files in <code>builds/</code> without them showing up.
+    </p>
+
+    <h2>What makes a build work here</h2>
+    <ul class="plain">
+      <li>
+        The folder must contain an <code>index.html</code>. That's the file the front page
+        links to.
+      </li>
+      <li>
+        Every path inside it has to be <strong>relative</strong> —
+        <code>css/style.css</code>, not <code>/css/style.css</code>. The site is served from a
+        subfolder, so a leading slash points at the wrong place and the build loads blank.
+      </li>
+      <li>
+        Keep each build self-contained. Nothing outside its own folder, so a snapshot from
+        2026 still runs years later even as the rest of the repo changes.
+      </li>
+      <li>
+        Don't edit builds after the fact. The point is what the game actually was on that day.
+      </li>
+    </ul>
+
+    <div class="callout">
+      <p>
+        Only HTML builds can be hosted here. For other platforms, put the build on itch.io and
+        link to it from your devlog.
+      </p>
+    </div>
+
+    <h2>Working on it locally</h2>
+    <p>To see your changes before pushing:</p>
+    <pre><code>node scripts/generate-index.mjs
+python3 -m http.server 4321</code></pre>
+    <p>
+      Then open <code>http://localhost:4321</code>. The first command rebuilds the front page
+      from your <code>builds/</code> folders; the second serves the site the way GitHub Pages
+      will. Opening <code>index.html</code> straight from disk works too, but a server matches
+      the real thing more closely.
+    </p>
+
+    <footer>
+      <p>
+        Pudding &mdash; a build archive template from Materializing Design. Full documentation
+        is in the repository's
+        <a href="https://github.com/Materializing-Design/Pudding/blob/main/README.md"><code>README.md</code></a>.
+      </p>
+    </footer>
+  </div>
+</body>
+
+</html>

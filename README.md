@@ -31,9 +31,9 @@ Project name, author, and description live in `config.json`:
 
 ```json
 {
-  "name": "It is as if you were doing work",
-  "author": "Pippin Barr",
-  "description": "..."
+  "name": "Your game's title",
+  "author": "Your name",
+  "description": "A sentence or two about the project."
 }
 ```
 
