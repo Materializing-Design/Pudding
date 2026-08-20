@@ -275,11 +275,19 @@
         <td><code>2026-09-14-174530</code></td>
         <td>September 14, 2026 &middot; 17:45:30</td>
       </tr>
+      <tr>
+        <td><code>2026-09-14-1</code>, <code>2026-09-14-2</code></td>
+        <td>September 14, 2026 &middot; #1, #2</td>
+      </tr>
     </table>
     <p>
-      Dated and timed folders mix freely — one without a time counts as that day's earliest
-      build. Anything that isn't a valid date is skipped, so you can keep notes or working
-      files in <code>builds/</code> without them showing up.
+      That last form is for when you know the order but not the clock time. Four or six digits
+      is read as a time, one or two as a sequence number.
+    </p>
+    <p>
+      All of these mix freely — a folder with neither time nor number counts as that day's
+      earliest build. Anything that isn't a valid date is skipped, so you can keep notes or
+      working files in <code>builds/</code> without them showing up.
     </p>
 
     <h2>What makes a build work here</h2>

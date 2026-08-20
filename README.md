@@ -14,8 +14,12 @@ Add a time to the folder name — `YYYY-MM-DD-HHMM`, 24-hour, e.g. `2017-07-02-1
 Use `YYYY-MM-DD-HHMMSS` if two land in the same minute; `T` also works as the
 separator (`2017-07-02T1430`).
 
-Times are optional and mix freely with plain dates: a folder with no time counts as
-that day's earliest build. Listed times are shown as written, with no timezone
+A plain sequence number works too — `2019-04-04-1`, `2019-04-04-2` — and shows up as
+`#1`, `#2`. Use it when you know the order but not the clock time. The digit count is
+what tells the two apart: four or six digits is a time, one or two is a sequence.
+
+Both forms are optional and mix freely with plain dates: a folder with neither counts
+as that day's earliest build. Listed times are shown as written, with no timezone
 conversion.
 
 The index regenerates on push — the list is read from the folder names in `builds/`,

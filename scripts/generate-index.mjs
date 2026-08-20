@@ -30,16 +30,21 @@ const projectDescription = config.description?.trim()
   ? escapeHtml(config.description.trim())
   : null;
 
-// A build folder is named YYYY-MM-DD, optionally carrying a time so more than one
-// build can land on the same day: YYYY-MM-DD-HHMM, or -HHMMSS when two land in the
-// same minute. "T" works as the separator too (2017-07-02T1430). A folder with no
-// time counts as that day's earliest build.
-const BUILD_NAME = /^(\d{4})-(\d{2})-(\d{2})(?:[-T](\d{2})(\d{2})(\d{2})?)?$/;
+// A build folder is named YYYY-MM-DD. When more than one build lands on the same day,
+// it carries either a 24-hour time (YYYY-MM-DD-HHMM, or -HHMMSS to the second; "T"
+// works as the separator too) or a plain sequence number (YYYY-MM-DD-1, -2, …).
+//
+// Both forms exist across the repos generated from this template, so both are
+// supported: dropping the sequence form would silently delete those builds from their
+// index. The digit count disambiguates — 4 or 6 digits is a time, 1 or 2 a sequence.
+// A folder with neither counts as that day's earliest build.
+const BUILD_NAME =
+  /^(\d{4})-(\d{2})-(\d{2})(?:[-T](\d{2})(\d{2})(\d{2})?|-(\d{1,2}))?$/;
 
 function parseBuildName(name) {
   const match = BUILD_NAME.exec(name);
   if (!match) return null;
-  const [, year, month, day, hour, minute, second] = match;
+  const [, year, month, day, hour, minute, second, sequence] = match;
   const at = new Date(
     `${year}-${month}-${day}T${hour ?? "00"}:${minute ?? "00"}:${second ?? "00"}Z`
   );
@@ -48,7 +53,14 @@ function parseBuildName(name) {
   if (Number.isNaN(at.getTime()) || !at.toISOString().startsWith(`${year}-${month}-${day}T`)) {
     return null;
   }
-  return { name, at, hasTime: hour !== undefined, hasSeconds: second !== undefined };
+  return {
+    name,
+    at,
+    hasTime: hour !== undefined,
+    hasSeconds: second !== undefined,
+    // Sorts sequenced builds within their day; 0 keeps an unnumbered folder first.
+    sequence: sequence === undefined ? 0 : Number(sequence),
+  };
 }
 
 const directories = readdirSync(buildsDir, { withFileTypes: true })
@@ -57,15 +69,18 @@ const directories = readdirSync(buildsDir, { withFileTypes: true })
 
 const unrecognized = directories.filter((name) => parseBuildName(name) === null);
 if (unrecognized.length > 0) {
-  console.error(`Skipping folders that aren't named YYYY-MM-DD[-HHMM]: ${unrecognized.join(", ")}`);
+  console.error(
+    `Skipping folders that aren't named YYYY-MM-DD[-HHMM|-N]: ${unrecognized.join(", ")}`
+  );
 }
 
 const builds = directories
   .map(parseBuildName)
   .filter(Boolean)
   // Newest first. Comparing timestamps rather than strings keeps mixed naming
-  // (2017-07-02 alongside 2017-07-02-1430) in true chronological order.
-  .sort((a, b) => b.at - a.at || b.name.localeCompare(a.name));
+  // (2017-07-02 alongside 2017-07-02-1430) in true chronological order; sequence
+  // breaks the tie between same-day builds that carry no time.
+  .sort((a, b) => b.at - a.at || b.sequence - a.sequence || b.name.localeCompare(a.name));
 
 if (builds.length === 0) {
   console.error("No dated build folders found in builds/");
@@ -102,7 +117,11 @@ const items = listed
           <a href="builds/${build.name}/index.html">
             <span class="when">
               <span class="date">${longDate(build.at)}</span>${
-                build.hasTime ? `\n              <span class="time">${clockTime(build)}</span>` : ""
+                build.hasTime
+                  ? `\n              <span class="time">${clockTime(build)}</span>`
+                  : build.sequence
+                    ? `\n              <span class="time">#${build.sequence}</span>`
+                    : ""
               }
             </span>
             <span class="iso">${build.name}</span>
