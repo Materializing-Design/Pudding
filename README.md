@@ -8,6 +8,16 @@ A GitHub Pages site that hosts every dated static build of a project and serves 
 1. Drop the build's folder into `builds/`, named `YYYY-MM-DD`. It must contain an `index.html`, and its asset paths must be relative (no leading `/`), since the site is served from a subpath.
 2. Commit and push.
 
+### More than one build in a day
+
+Add a time to the folder name — `YYYY-MM-DD-HHMM`, 24-hour, e.g. `2017-07-02-1430`.
+Use `YYYY-MM-DD-HHMMSS` if two land in the same minute; `T` also works as the
+separator (`2017-07-02T1430`).
+
+Times are optional and mix freely with plain dates: a folder with no time counts as
+that day's earliest build. Listed times are shown as written, with no timezone
+conversion.
+
 The index regenerates on push — the list is read from the folder names in `builds/`,
 never hand-written. To preview locally first:
 
