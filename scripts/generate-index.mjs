@@ -2,7 +2,7 @@
 // Regenerates index.html from whatever build folders exist in builds/.
 // Run after adding or removing a build:  node scripts/generate-index.mjs
 
-import { readdirSync, readFileSync, statSync, existsSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, existsSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 

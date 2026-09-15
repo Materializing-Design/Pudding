@@ -51,3 +51,12 @@ repository to GitHub Pages on every push to `main`. This requires
 **Settings → Pages → Source: "GitHub Actions"**.
 
 `index.html` is generated output — edit `scripts/generate-index.mjs`, not the HTML.
+
+## Documentation
+
+- [Architecture](docs/architecture.md) — how the generator works, the folder-naming
+  grammar, and the contracts a build has to honour.
+- [Deployment](docs/deployment.md) — Pages setup, what the workflow does, local preview,
+  troubleshooting, and updating repositories generated from this template.
+- [Implementation log](docs/implementation-log.md) — the decisions behind the design,
+  including the ones that were reversed.
